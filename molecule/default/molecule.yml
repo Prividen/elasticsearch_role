@@ -5,12 +5,32 @@ driver:
   name: docker
 platforms:
   - name: centos7
-    image: docker.io/pycontribs/centos:7
+    image: docker.io/jrei/systemd-centos:7
     pre_build_image: true
+    privileged: true
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro,z"
+    command: /sbin/init
+
+  - name: centos8
+    image: docker.io/jrei/systemd-centos:8
+    pre_build_image: true
+    privileged: true
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro,z"
+    command: /sbin/init
+
   - name: ubuntu
-    image: docker.io/pycontribs/ubuntu:latest
+    image: docker.io/jrei/systemd-ubuntu:latest
+    #    image: docker.io/pycontribs/ubuntu:latest
     pre_build_image: true
+    privileged: true
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro,z"
+    command: /sbin/init
+
 provisioner:
   name: ansible
+
 verifier:
   name: ansible

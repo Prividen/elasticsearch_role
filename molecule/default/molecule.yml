@@ -45,6 +45,10 @@ provisioner:
         elasticsearch_version: "{{ elk_stack_version }}"
         es_java_memory_gb: 1
 
-
 verifier:
   name: ansible
+
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
